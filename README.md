@@ -1,6 +1,6 @@
-# Nestjs-Prisma-GraphQL-Example
+# NodeJs-Prisma-GraphQL-Example
 
-Example made with Nestjs, Prisma, GraphQL for a Course Lab.
+Example made with NodeJs, Prisma, GraphQL for a Course Lab.
 
 ## How to build this project
 
