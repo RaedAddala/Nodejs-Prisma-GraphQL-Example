@@ -1,4 +1,4 @@
 export type Skill = {
-  id: string;
-  designation: string;
-}
+    id: string;
+    designation: string;
+};

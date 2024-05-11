@@ -1,7 +1,7 @@
 export type Id = {
-  id: string;
-}
+    id: string;
+};
 
 export type Input<T> = {
-  input: T;
-}
+    input: T;
+};
