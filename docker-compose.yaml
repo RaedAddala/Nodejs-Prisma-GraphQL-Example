@@ -1,0 +1,45 @@
+services:
+  db:
+    # Always specify your version
+    # used alpine version because we do not need the whole debian os that comes with postgres default image
+    # alpine is more than enough in our case
+    image: postgres:16.2-alpine
+    environment:
+      POSTGRES_DB: graphql
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d graphql"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  pgadmin:
+    # Always specify your version
+    # 8.5 is the latest right now so stick with this so the code works in years to come
+    image: dpage/pgadmin4:8.5
+    restart: always
+    container_name: nest-pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=pgadmin4
+    ports:
+      - '5050:80'
+    
+    # db must be running and healthy before starting the pgadmin service
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80/login || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  db-data:
