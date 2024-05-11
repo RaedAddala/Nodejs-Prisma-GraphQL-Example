@@ -74,7 +74,11 @@ export const Mutation = {
         return newCv;
     },
 
-    updateCv: async (_parent: unknown, { input }: Input<UpdateCvInput>, { prisma, pubSub }: Context) => {
+    updateCv: async (
+        _parent: unknown,
+        { input }: Input<UpdateCvInput>,
+        { prisma, pubSub }: Context,
+    ) => {
         const { id, user, skills, ...data } = input;
 
         const existingCv = await prisma.cv.findUnique({
